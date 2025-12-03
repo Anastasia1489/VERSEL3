@@ -3,45 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой сайт на Vercel</title>
+    <title>Интернет-магазин с формой обратной связи</title>
     <style>
+        /* Основные стили магазина */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Основной контент */
+        main {
+            padding: 2rem 0;
+            min-height: calc(100vh - 140px);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #666;
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: #45a049;
+        }
+
+        /* Подвал */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        /* Стили для страницы формы обратной связи */
+        .feedback-page {
             font-family: Arial, sans-serif;
             max-width: 500px;
             margin: 50px auto;
             padding: 20px;
         }
-        
-        h1 {
+
+        .feedback-page h1 {
             color: #333;
             text-align: center;
             margin-bottom: 30px;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
-        label {
+
+        .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
-        
-        input, textarea {
+
+        .form-group input, 
+        .form-group textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 16px;
         }
-        
-        textarea {
+
+        .form-group textarea {
             height: 150px;
             resize: vertical;
         }
-        
-        button {
+
+        .feedback-page button {
             background: #4CAF50;
             color: white;
             border: none;
@@ -51,18 +186,18 @@
             cursor: pointer;
             width: 100%;
         }
-        
-        button:hover {
+
+        .feedback-page button:hover {
             background: #45a049;
         }
-        
+
         .error {
             color: red;
             font-size: 14px;
             margin-top: 5px;
             display: none;
         }
-        
+
         .success {
             background: #d4edda;
             color: #155724;
@@ -72,91 +207,161 @@
             margin-top: 20px;
             display: none;
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+        /* Навигация по страницам */
+        .page-navigation {
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 20px;
+            gap: 1rem;
+            margin: 2rem 0;
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
+        .page-link {
+            background: #4CAF50;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
         }
 
-        h1 {
-            color: #333;
-            margin-bottom: 1.5rem;
-            font-size: 2.5rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        .page-link:hover {
+            background: #45a049;
         }
 
-        p {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
+        /* Скрытие страниц */
+        .page {
+            display: none;
         }
 
-        p:last-child {
-            margin-bottom: 0;
-            color: #764ba2;
-            font-weight: 500;
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 2rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
+        .page.active {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Привет, мир!</h1>
-        <p>Это мой первый сайт, размещенный на Vercel.</p>
-        <p>Выполняю задание по администрированию.</p>
+    <!-- Шапка -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">🛒 Магазин</div>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showPage('main')">Главная</a></li>
+                        <li><a href="#" onclick="showPage('feedback')">Обратная связь</a></li>
+                        <li><a href="#cart">Корзина</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Навигация по страницам -->
+    <div class="page-navigation">
+        <a href="#" class="page-link" onclick="showPage('main')">Товары</a>
+        <a href="#" class="page-link" onclick="showPage('feedback')">Форма обратной связи</a>
     </div>
-    <h2>Форма обратной связи Зиминой Анастасии 4-МД-5</h2>
-    
-    <form id="feedbackForm">
-        <div class="form-group">
-            <label for="name">ФИО:</label>
-            <input type="text" id="name" placeholder="Введите ваше имя">
-        </div>
+
+    <!-- Основной контент - страница товаров -->
+    <main class="container page active" id="main-page">
+        <!-- Секция с товарами -->
+        <section id="products">
+            <h1 style="margin-bottom: 2rem; color: #333;">Наши товары</h1>
+            <div class="products-grid">
+                <!-- Товар 1 -->
+                <div class="product-card">
+                    <div class="product-img">📱</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Смартфон</h3>
+                        <p class="product-price">25 000 ₽</p>
+                        <button class="add-to-cart">В корзину</button>
+                    </div>
+                </div>
+                
+                <!-- Товар 2 -->
+                <div class="product-card">
+                    <div class="product-img">💻</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Ноутбук</h3>
+                        <p class="product-price">65 000 ₽</p>
+                        <button class="add-to-cart">В корзину</button>
+                    </div>
+                </div>
+                
+                <!-- Товар 3 -->
+                <div class="product-card">
+                    <div class="product-img">🎧</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Наушники</h3>
+                        <p class="product-price">5 000 ₽</p>
+                        <button class="add-to-cart">В корзину</button>
+                    </div>
+                </div>
+                
+                <!-- Товар 4 -->
+                <div class="product-card">
+                    <div class="product-img">⌚</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Умные часы</h3>
+                        <p class="product-price">15 000 ₽</p>
+                        <button class="add-to-cart">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Страница формы обратной связи -->
+    <div class="feedback-page page" id="feedback-page">
+        <h1>Форма обратной связи Зиминой Анастасии 4-МД-5</h1>
         
-        <div class="form-group">
-            <label for="message">Отзыв:</label>
-            <textarea id="message" placeholder="Ваш отзыв о сайте"></textarea>
+        <form id="feedbackForm">
+            <div class="form-group">
+                <label for="name">ФИО:</label>
+                <input type="text" id="name" placeholder="Введите ваше имя">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Отзыв:</label>
+                <textarea id="message" placeholder="Ваш отзыв о сайте"></textarea>
+            </div>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <p>© 2024 Интернет-магазин. Все права защищены.</p>
+            <p>Зимина Анастасия, группа 4-МД-5</p>
         </div>
-        <button type="submit">Отправить</button>
-    </form>
-</body>
-<script>
+    </footer>
+
+    <script>
+        // Функция переключения страниц
+        function showPage(pageId) {
+            // Скрыть все страницы
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Показать выбранную страницу
+            document.getElementById(pageId + '-page').classList.add('active');
+            
+            // Обновить активную ссылку в навигации
+            document.querySelectorAll('.page-link').forEach(link => {
+                link.style.background = '#4CAF50';
+            });
+            
+            return false;
+        }
+
+        // Обработка формы обратной связи (ИЗМЕНЯТЬ ЭТОТ КОД НЕЛЬЗЯ)
         document.getElementById('feedbackForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const name = document.getElementById('name').value;
             const feedback = document.getElementById('message').value;
-
 
             const message = `обратная связь \n ${name} \n ${feedback}`;
             const token = '7910801820:AAE6kHOE4vJY3i9eDuIry6nlzOQwiNqHico';
@@ -173,6 +378,60 @@
                     text: message
                 })
             })
+            .then(response => {
+                if (response.ok) {
+                    alert('Отзыв успешно отправлен!');
+                    document.getElementById('feedbackForm').reset();
+                } else {
+                    alert('Ошибка при отправке отзыва. Пожалуйста, попробуйте позже.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ошибка при отправке отзыва. Проверьте подключение к интернету.');
+            });
         });
-</script>
+
+        // Обработка кнопок "В корзину"
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.product-title').textContent;
+                const productPrice = productCard.querySelector('.product-price').textContent;
+                
+                // Анимация кнопки
+                const originalText = this.textContent;
+                this.textContent = 'Добавлено ✓';
+                this.style.background = '#2E7D32';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.background = '';
+                }, 2000);
+                
+                // Вывод сообщения
+                alert(`${productName} добавлен в корзину за ${productPrice}`);
+            });
+        });
+
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
 </html>
